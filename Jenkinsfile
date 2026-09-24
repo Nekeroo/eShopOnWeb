@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'dotnet build eShopOnWeb.sln'
+        sh '''dotnet restore
+dotnet build --configuration Release --no-restore eShopOnWeb.sln'''
       }
     }
 
@@ -11,19 +12,19 @@ pipeline {
       parallel {
         stage('Tests') {
           steps {
-            sh 'dotnet test tests/UnitTests'
+            sh 'dotnet test tests/UnitTests   --configuration Release   --no-build   --no-restore'
           }
         }
 
         stage('Integration') {
           steps {
-            sh 'dotnet test tests/IntegrationTests'
+            sh 'dotnet test tests/IntegrationTests.csproj   --configuration Release   --no-build   --no-restore'
           }
         }
 
         stage('Functional') {
           steps {
-            sh 'dotnet test tests/FunctionalTests'
+            sh 'dotnet test tests/FunctionalTests   --configuration Release   --no-build   --no-restore'
           }
         }
 
