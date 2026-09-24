@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''dotnet restore
-dotnet build --configuration Release --no-restore eShopOnWeb.sln'''
+        sh 'dotnet build --configuration Release --no-restore eShopOnWeb.sln'
       }
     }
 
